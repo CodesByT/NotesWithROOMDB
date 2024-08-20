@@ -1,6 +1,5 @@
 package com.example.notes.presentation
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,10 +14,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,13 +38,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.notes.data.room.Note
 import com.example.notes.presentation.components.NoteInput
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Homescreen() {
+fun Homescreen(navController: NavHostController) {
 
     val vm = hiltViewModel<HomescreenViewModel>()
 
@@ -58,7 +60,18 @@ fun Homescreen() {
     var updateThis:Note =Note(id= -1,note="")
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Notes", fontSize = 32.sp) }) },
+        topBar = { TopAppBar(
+            title = { Text("Notes", fontSize = 32.sp) },
+            actions = {
+                IconButton(onClick = {
+                    navController.navigate("settings_screen"){
+
+                    }
+                }) {
+                    Icon(imageVector = Icons.Filled.Settings, contentDescription = "Settings")
+                }
+            }
+        ) },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = { Text("Add Note",color = Color.White) },

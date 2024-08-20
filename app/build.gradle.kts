@@ -54,6 +54,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            // To avoid the previous gradle compatibilities
+            excludes += "META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -98,6 +100,11 @@ dependencies {
 //    Serialization :
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+
+    implementation("androidx.navigation:navigation-compose:2.7.0")
 
 
 }
